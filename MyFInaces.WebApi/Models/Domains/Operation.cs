@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace MyFinances.WebApi.Models.Domains;
+
+public partial class Operation
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public byte[]? Description { get; set; }
+
+    public decimal Value { get; set; }
+
+    public DateTime Data { get; set; }
+
+    public int CategoryId { get; set; }
+
+    public virtual Category Category { get; set; } = null!;
+}
