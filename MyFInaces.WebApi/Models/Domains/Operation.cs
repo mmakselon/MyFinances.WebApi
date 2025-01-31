@@ -9,7 +9,7 @@ public partial class Operation
 
     public string Name { get; set; } = null!;
 
-    public byte[]? Description { get; set; }
+    public string? Description { get; set; }
 
     public decimal Value { get; set; }
 
