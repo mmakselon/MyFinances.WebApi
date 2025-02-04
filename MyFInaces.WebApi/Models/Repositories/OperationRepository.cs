@@ -4,11 +4,11 @@ using Operation = MyFinances.WebApi.Models.Domains.Operation;
 
 namespace MyFinances.WebApi.Models.Repositories
 {
-    public class OperationReposotory
+    public class OperationRepository
     {
         private readonly MyFinancesContext _context;
 
-        public OperationReposotory(MyFinancesContext context)
+        public OperationRepository(MyFinancesContext context)
         {
                 _context = context;
         }
