@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using MyFinances.WebApi.Models;
 using MyFinances.WebApi.Models.Domains;
 
 namespace MyFinances.WebApi
@@ -16,6 +17,8 @@ namespace MyFinances.WebApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<UnitOfWork, UnitOfWork>();
             builder.Services.AddDbContext<MyFinancesContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyFinancesContext")));
 
             var app = builder.Build();

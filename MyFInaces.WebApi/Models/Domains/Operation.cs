@@ -13,7 +13,7 @@ public partial class Operation
 
     public decimal Value { get; set; }
 
-    public DateTime Data { get; set; }
+    public DateTime Date{ get; set; }
 
     public int CategoryId { get; set; }
 
