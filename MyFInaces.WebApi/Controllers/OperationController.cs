@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Services;
 using MyFinances.WebApi.Models;
 
 namespace MyFinances.WebApi.Controllers
@@ -13,6 +14,12 @@ namespace MyFinances.WebApi.Controllers
         public OperationController(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        [HttpGet]
+        public IEnumerable<Operations> Get()
+        {
+            return _unitOfWork.Operation.Get();
         }
     }
 }
