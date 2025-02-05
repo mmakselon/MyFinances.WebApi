@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MyFinances.WebApi.Models.Domains;
 
-public partial class Operation
+public partial class Operations
 {
     public int Id { get; set; }
 

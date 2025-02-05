@@ -1,6 +1,6 @@
 ﻿using Azure;
 using MyFinances.WebApi.Models.Domains;
-using Operation = MyFinances.WebApi.Models.Domains.Operation;
+using Operations = MyFinances.WebApi.Models.Domains.Operations;
 
 namespace MyFinances.WebApi.Models.Repositories
 {
@@ -12,23 +12,23 @@ namespace MyFinances.WebApi.Models.Repositories
         {
                 _context = context;
         }
-        public IEnumerable<Operation> Get()
+        public IEnumerable<Operations> Get()
         {
             return _context.Operations;
         }
 
-        public Operation Get(int id)
+        public Operations Get(int id)
         {
             return _context.Operations.FirstOrDefault(x=>x.Id==id);
         }
 
-        public void Add(Operation operation)
+        public void Add(Operations operation)
         {
             operation.Date = DateTime.Now;
             _context.Operations.Add(operation);
         }
 
-        public void Update(Operation operation)
+        public void Update(Operations operation)
         {
             var operationToUpdate = _context.Operations
                 .First(x=>x.Id== operation.Id);
