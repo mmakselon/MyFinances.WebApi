@@ -18,12 +18,6 @@ namespace MyFinances.WebApi.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        /*[HttpGet]
-        public IEnumerable<Operations> Get()
-        {
-            return _unitOfWork.Operation.Get();
-        }*/
-
         [HttpGet]
         public DataResponse<IEnumerable<Operations>> Get()
         {
@@ -36,6 +30,44 @@ namespace MyFinances.WebApi.Controllers
             {
                 //logowanie do pliku...
                 response.Errors.Add(new Error(exception.Source, exception.Message));    
+            }
+
+            return response;
+        }
+
+        [HttpGet("{id}")]
+        public DataResponse<Operations> Get(int id)
+        {
+            var response = new DataResponse<Operations>();
+
+            try
+            {
+                response.Data = _unitOfWork.Operation.Get(id);
+            }
+            catch (Exception exception)
+            {
+                //logowanie do pliku...
+                response.Errors.Add(new Error(exception.Source, exception.Message));
+            }
+
+            return response;
+        }
+
+        [HttpPost]
+        public DataResponse<int> Add(Operations operation)
+        { 
+            var response = new DataResponse<int>();
+
+            try
+            {
+                _unitOfWork.Operation.Add(operation);
+                _unitOfWork.Complete();
+                response.Data = operation.Id;
+            }
+            catch (Exception exception)
+            {
+                //logowanie do pliku...
+                response.Errors.Add(new Error(exception.Source, exception.Message));
             }
 
             return response;
