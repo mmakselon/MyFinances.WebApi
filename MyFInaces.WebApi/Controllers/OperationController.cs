@@ -72,5 +72,25 @@ namespace MyFinances.WebApi.Controllers
 
             return response;
         }
+
+        [HttpPost]
+        public DataResponse<int> Add(Operations operation)
+        {
+            var response = new DataResponse<int>();
+
+            try
+            {
+                _unitOfWork.Operation.Add(operation);
+                _unitOfWork.Complete();
+                response.Data = operation.Id;
+            }
+            catch (Exception exception)
+            {
+                //logowanie do pliku...
+                response.Errors.Add(new Error(exception.Source, exception.Message));
+            }
+
+            return response;
+        }
     }
 }
