@@ -34,7 +34,7 @@ public partial class MyFinancesContext : DbContext
 
         modelBuilder.Entity<Operations>(entity =>
         {
-            entity.Property(e => e.Data).HasColumnType("datetime");
+            entity.Property(e => e.Date).HasColumnType("datetime");
             entity.Property(e => e.Description)
                 .HasMaxLength(500)
                 .IsUnicode(false);
