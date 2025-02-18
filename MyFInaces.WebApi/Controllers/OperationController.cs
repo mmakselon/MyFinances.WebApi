@@ -44,7 +44,7 @@ namespace MyFinances.WebApi.Controllers
 
             try
             {
-                response.Data = _unitOfWork.Operation.Get(id).ToDto();
+                response.Data = _unitOfWork.Operation.Get(id)?.ToDto();
             }
             catch (Exception exception)
             {
@@ -56,13 +56,14 @@ namespace MyFinances.WebApi.Controllers
         }
 
         [HttpPost]
-        public DataResponse<int> Add(OperationDto operation)
+        public DataResponse<int> Add(OperationDto operationDto)
         { 
             var response = new DataResponse<int>();
 
             try
             {
-                _unitOfWork.Operation.Add(operation.ToDao());
+                var operation = operationDto.ToDao();
+                _unitOfWork.Operation.Add(operation);
                 _unitOfWork.Complete();
                 response.Data = operation.Id;
             }
