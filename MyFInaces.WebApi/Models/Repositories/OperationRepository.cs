@@ -22,6 +22,17 @@ namespace MyFinances.WebApi.Models.Repositories
             return _context.Operations.FirstOrDefault(x=>x.Id==id);
         }
 
+        public IEnumerable<Operation> GetPaged(int recordsPerPage, int pageNumber)
+        {
+            // Obliczamy liczbę rekordów do pominięcia (Skip)
+            var skipCount = (pageNumber - 1) * recordsPerPage;
+
+            // Pobieramy odpowiednią stronę danych
+            return (IEnumerable<Operation>)_context.Operations
+                           .Skip(skipCount)
+                           .Take(recordsPerPage);
+        }
+
         public void Add(Operations operation)
         {
             operation.Date = DateTime.Now;

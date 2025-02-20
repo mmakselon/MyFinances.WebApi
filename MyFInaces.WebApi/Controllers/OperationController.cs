@@ -36,6 +36,7 @@ namespace MyFinances.WebApi.Controllers
 
             return response;
         }
+
         /// <summary>
         /// Get operation by id
         /// </summary>
@@ -49,6 +50,24 @@ namespace MyFinances.WebApi.Controllers
             try
             {
                 response.Data = _unitOfWork.Operation.Get(id)?.ToDto();
+            }
+            catch (Exception exception)
+            {
+                //logowanie do pliku...
+                response.Errors.Add(new Error(exception.Source, exception.Message));
+            }
+
+            return response;
+        }
+
+        [HttpGet("paged")]
+        public DataResponse<IEnumerable<OperationDto>> GetPaged(int recordsPerPage, int pageNumber)
+        {
+            var response = new DataResponse<IEnumerable<OperationDto>>();
+
+            try
+            {
+                response.Data = _unitOfWork.Operation.GetPaged(recordsPerPage, pageNumber).ToDtos();
             }
             catch (Exception exception)
             {
