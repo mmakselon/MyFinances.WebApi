@@ -28,9 +28,12 @@ namespace MyFinances.WebApi.Models.Repositories
             var skipCount = (pageNumber - 1) * recordsPerPage;
 
             // Pobieramy odpowiednią stronę danych
-            return (IEnumerable<Operation>)_context.Operations
-                           .Skip(skipCount)
-                           .Take(recordsPerPage);
+            //return _context.Operations.Skip(skipCount).Take(recordsPerPage);
+            return _context.Operations
+               .AsQueryable()     // Upewniamy się, że jest to IQueryable
+               .Skip(skipCount)
+               .Take(recordsPerPage)
+               .ToList();
         }
 
         public void Add(Operations operation)
