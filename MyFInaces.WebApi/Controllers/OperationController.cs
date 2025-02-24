@@ -60,14 +60,23 @@ namespace MyFinances.WebApi.Controllers
             return response;
         }
 
-        [HttpGet("paged")]
+        [HttpGet("{recordsPerPage}/{pageNumber}")]
         public DataResponse<IEnumerable<OperationDto>> GetPaged(int recordsPerPage, int pageNumber)
         {
             var response = new DataResponse<IEnumerable<OperationDto>>();
 
             try
             {
-                response.Data = _unitOfWork.Operation.GetPaged(recordsPerPage, pageNumber).ToDtos();
+                if (recordsPerPage <=0)
+                    throw new ArgumentException(nameof(recordsPerPage));
+
+                if (pageNumber <=0)
+                    throw new ArgumentException(nameof(pageNumber));
+
+                response.Data = _unitOfWork
+                    .Operation
+                    .GetPaged(recordsPerPage, pageNumber)
+                    .ToDtos();
             }
             catch (Exception exception)
             {
